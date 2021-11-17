@@ -23,31 +23,30 @@ public class firstdrivetrain extends LinearOpMode {
   private DcMotor core0;
   private DcMotor core1;
   private RevBlinkinLedDriver rgb;
-  String autoStat = "Not Started";
-  while (opModeIsActive()) {
-    telemetry.addData("Motor 0 Power", motor0.getPower());
-    telemetry.addData("Auto Status: ", autoStat);
-    telemetry.update();
-  }
   @Override
   public void runOpMode() {
-    autoStat = "Driving Forward..."
+    telemetry.addData("Auto Status: ", "Driving Forward...");
+    telemetry.update();
     motor0.setPower(1);
     motor1.setPower(1);
     motor2.setPower(1);
     motor3.setPower(1);
     sleep(500);
+    telemetry.addData("Auto Status: ", "Turning...");
+    telemetry.update();
     motor0.setPower(1);
     motor1.setPower(-1);
     motor2.setPower(1);
     motor3.setPower(-1);
-    autoStat = "Turning..."
     sleep(100);
+    telemetry.addData("Auto Status: ", "Stopping...");
+    telemetry.update();
     motor0.setPower(0);
     motor1.setPower(0);
     motor2.setPower(0);
     motor3.setPower(0);
-    autoStat = "Stopped"
+    telemetry.addData("Auto Status: ", "Stopped.");
+    telemetry.update();
   }
 
 
