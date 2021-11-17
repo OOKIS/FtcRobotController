@@ -39,6 +39,13 @@ public class firstdrivetrain extends LinearOpMode {
     motor2.setPower(1);
     motor3.setPower(-1);
     sleep(100);
+    telemetry.addData("Auto Status: ", "Driving Forward...");
+    telemetry.update();
+    motor0.setPower(1);
+    motor1.setPower(1);
+    motor2.setPower(1);
+    motor3.setPower(1);
+    sleep(2000);
     telemetry.addData("Auto Status: ", "Stopping...");
     telemetry.update();
     motor0.setPower(0);
