@@ -85,7 +85,7 @@ public class firstdrivetrain extends LinearOpMode {
         }
         
         if (ledc == 1){
-          rgb.setPattern(RevBlinkinLedDriver.BlinkinPattern.SHOT_RED);
+          rgb.setPattern(RevBlinkinLedDriver.BlinkinPattern.SHOT_YELLOW);
         }
         else if (ledc == 2) {
           rgb.setPattern(RevBlinkinLedDriver.BlinkinPattern.CONFETTI);
