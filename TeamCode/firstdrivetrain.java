@@ -77,6 +77,12 @@ public class firstdrivetrain extends LinearOpMode {
           servo1.setPosition(0);
         }
         
+        if (gamepad1.right_trigger) {
+          motor0.setPower(1);
+          motor1.setPower(1);
+          motor2.setPower(1);
+          motor3.setPower(1);
+        }
         if (gamepad2.a) {
           ledc++;
         }
