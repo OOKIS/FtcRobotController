@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "firstdrivetrain2 (Blocks to Java)", group = "")
+@TeleOp(name = "bruhhhhhhhhhhhhh", group = "")
 public class firstdrivetrain extends LinearOpMode {
 
   private DcMotor motor0;
