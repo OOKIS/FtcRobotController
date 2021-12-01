@@ -24,7 +24,7 @@ public class firstdrivetrain extends LinearOpMode {
   private DcMotor core1;
   private RevBlinkinLedDriver rgb;
   @Override
-  public void runOpMode() {
+  public void runAutoMode() {
     telemetry.addData("Auto Status: ", "Driving Forward...");
     telemetry.update();
     motor0.setPower(1);

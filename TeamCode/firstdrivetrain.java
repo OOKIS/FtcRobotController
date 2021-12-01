@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "bruhhhhhhhhhhhhh", group = "")
+@TeleOp(name = "ight", group = "iii")
 public class firstdrivetrain extends LinearOpMode {
 
   private DcMotor motor0;
@@ -30,10 +30,7 @@ public class firstdrivetrain extends LinearOpMode {
     double rightX;
     double ledc = 0;
 
-    motor0 = hardwareMap.get(DcMotor.class, "motor0");
-    motor1 = hardwareMap.get(DcMotor.class, "motor1");
-    motor2 = hardwareMap.get(DcMotor.class, "motor2");
-    motor3 = hardwareMap.get(DcMotor.class, "motor3");
+
     servo0 = hardwareMap.get(Servo.class, "servo0");
     servo1 = hardwareMap.get(Servo.class, "servo1");
     rgb = hardwareMap.get(RevBlinkinLedDriver.class, "rgb");
@@ -58,15 +55,19 @@ public class firstdrivetrain extends LinearOpMode {
         motor1.setPower(Math.min(Math.max(leftY + rightX, -1), 1));
         motor2.setPower(Math.min(Math.max(leftY - rightX, -1), 1));
         motor3.setPower(Math.min(Math.max(leftY + rightX, -1), 1));
-        if (gamepad1.dpad_up) {
+        if (gamepad2.dpad_up) {
           core0.setPower(1);
           core1.setPower(-1);
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad2.dpad_down) {
           core0.setPower(-1);
           core1.setPower(1);
         } else {
           core0.setPower(0);
           core1.setPower(0);
+        }
+        if (gamepad2.dpad_left) {
+            core1.setPosition(30);
+
         }
         if (gamepad2.left_bumper) {
           servo0.setPosition(0);
@@ -75,6 +76,9 @@ public class firstdrivetrain extends LinearOpMode {
         if (gamepad2.right_bumper) {
           servo0.setPosition(1);
           servo1.setPosition(0);
+        }
+        else {
+          telemetry.addData("Arm Status", "nope");
         }
         
         if (gamepad1.right_trigger) {
