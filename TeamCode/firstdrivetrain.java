@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "ight", group = "iii")
+@TeleOp(name = "ight", group = "")
 public class firstdrivetrain extends LinearOpMode {
 
   private DcMotor motor0;
