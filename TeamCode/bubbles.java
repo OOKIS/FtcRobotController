@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "bubbles")
-public class bubbles extends OpMode {
+public class bubbles extends LinearOpMode {
 
   private DcMotor motor0;
   private DcMotor motor1;
