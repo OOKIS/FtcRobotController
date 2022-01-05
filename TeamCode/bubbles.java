@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver.BlinkinPattern;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -22,7 +24,9 @@ public class bubbles extends LinearOpMode {
   private Servo servo1;
   private DcMotor core0;
   private DcMotor core1;
+  private DcMotor duckyy;
   private RevBlinkinLedDriver rgb;
+  private DistanceSensor dist;
 
   @Override
   public void runOpMode() {
@@ -41,7 +45,8 @@ public class bubbles extends LinearOpMode {
     rgb = hardwareMap.get(RevBlinkinLedDriver.class, "rgb");
     core0 = hardwareMap.get(DcMotor.class, "core0");
     core1 = hardwareMap.get(DcMotor.class, "core1");
-
+    duckyy = hardwareMap.get(DcMotor.class, "duckyy");
+    dist = hardwareMap.get(DistanceSensor.class, "dist");
     // Put initialization blocks here.
     core0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     core0.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
@@ -54,6 +59,9 @@ public class bubbles extends LinearOpMode {
     motor3.setDirection(DcMotorSimple.Direction.FORWARD);
     core0.setDirection(DcMotorSimple.Direction.REVERSE);
     core1.setDirection(DcMotorSimple.Direction.FORWARD);
+    duckyy.setDirection(DcMotorSimple.Direction.FORWARD);
+    servo0.setDirection(Servo.Direction.FORWARD);
+    servo1.setDirection(Servo.Direction.REVERSE);
     //servo0.setPosition(0);
     //servo1.setPosition(0);
     waitForStart();
@@ -61,41 +69,46 @@ public class bubbles extends LinearOpMode {
       // Put run blocks here.
       while (opModeIsActive()) {
         // Put loop blocks here.
-        leftY = gamepad1.right_stick_x * -1;
-        rightX = gamepad1.left_stick_y * -0.5;
-        if ((gamepad1.right_stick_x < 0.2) && (gamepad1.right_stick_x > -0.2)) {
-          motor0.setPower(gamepad1.left_stick_y);
-          motor1.setPower(gamepad1.left_stick_y * -1);
-          motor2.setPower(gamepad1.left_stick_y);
-          motor3.setPower(gamepad1.left_stick_y * -1);
-        }
-        else {
-          
-        
+        leftY = gamepad2.right_stick_x * -.5;
+        rightX = gamepad2.left_stick_y * -1;
         motor0.setPower(Math.min(Math.max(leftY - rightX, -1), 1));
         motor1.setPower(Math.min(Math.max(leftY + rightX, -1), 1));
         motor2.setPower(Math.min(Math.max(leftY - rightX, -1), 1));
-        motor3.setPower(Math.min(Math.max(leftY + rightX, -1), 1));
+        motor3.setPower(Math.min(Math.max(leftY + rightX, -1), 1)); 
+        if ((gamepad1.right_stick_x < 0.1) && (gamepad1.right_stick_x > -0.1)) {
+          motor0.setPower(gamepad2.left_stick_y);
+          motor1.setPower(gamepad2.left_stick_y * -1);
+          motor2.setPower(gamepad2.left_stick_y);
+          motor3.setPower(gamepad2.left_stick_y * -1);
         }
+        else {
+          motor0.setPower(Math.min(Math.max(leftY - rightX, -1), 1));
+          motor1.setPower(Math.min(Math.max(leftY + rightX, -1), 1));
+          motor2.setPower(Math.min(Math.max(leftY - rightX, -1), 1));
+          motor3.setPower(Math.min(Math.max(leftY + rightX, -1), 1));
+          
+        } 
         if (gamepad2.dpad_up) {
-          lucas++;
+          lucas = lucas - 3;
         }
         else if (gamepad2.dpad_down) {
-          lucas--;
+          lucas = lucas + 3;
         }
+        
         core0.setTargetPosition(lucas);
-        if (gamepad2.a){
-          
+        core1.setTargetPosition(lucas);
+        
+        if (lucas > 0 || lucas < 0){
           core0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
           core0.setPower(1);
+          core1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+          core1.setPower(1);
         }
+        
         if (gamepad2.dpad_left) {
             lucas = 0;
             core0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             
-        }
-        if (gamepad2.dpad_right) {
-            lucas = lucas + 1;
         }
         
         
@@ -111,28 +124,30 @@ public class bubbles extends LinearOpMode {
 
 
         if (gamepad2.left_bumper) {
-          servo0.setPosition(0);
-          servo1.setPosition(1);
+          servo0.setPosition(.95);
+          servo1.setPosition(.9);
         }
         if (gamepad2.right_bumper) {
-          servo0.setPosition(1);
-          servo1.setPosition(0);
+          servo0.setPosition(0.6);
+          servo1.setPosition(.55);
         }
         else {
           telemetry.addData("Arm Status", "nope");
         }
         
-        if (gamepad1.right_stick_button) {
-          motor0.setPower(1);
-          motor1.setPower(1);
-          motor2.setPower(1);
-          motor3.setPower(1);
-        }
+       
         if (gamepad2.a) {
           ledc++;
         }
         else if (gamepad2.b) {
           ledc--;
+        }
+        
+        if (gamepad2.y) {
+          duckyy.setPower(1);
+        }
+        else {
+          duckyy.setPower(0);
         }
 
         telemetry.addData("CCore 0+1", core0.getCurrentPosition());
